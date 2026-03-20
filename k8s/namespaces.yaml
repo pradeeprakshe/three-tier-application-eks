@@ -1,0 +1,16 @@
+# k8s/namespaces.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: bookstore-dev
+  labels:
+    project: bookstore
+    env: dev
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: bookstore-prod
+  labels:
+    project: bookstore
+    env: prod

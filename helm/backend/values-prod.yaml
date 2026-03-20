@@ -1,0 +1,22 @@
+replicaCount: 4
+
+image:
+  tag: "1.25"
+
+config:
+  NODE_ENV: "production"
+  LOG_LEVEL: "warn"
+
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "200m"
+  limits:
+    memory: "256Mi"
+    cpu: "500m"
+
+autoscaling:
+  enabled: true
+  minReplicas: 4
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70

@@ -1,0 +1,49 @@
+# k8s/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: bookstore-dev
+  labels:
+    app: backend
+    version: v1
+spec:
+  replicas: 2                          # ← run 2 pods
+  selector:
+    matchLabels:
+      app: backend                     # ← must match template labels
+  template:
+    metadata:
+      labels:
+        app: backend
+        version: v1
+    spec:
+      containers:
+        - name: backend
+          image: nginx:alpine          # ← placeholder (real app later)
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: backend-config  # ← inject all ConfigMap keys
+            - secretRef:
+                name: backend-secret  # ← inject all Secret keys
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "200m"
+          livenessProbe:              # ← K8s restarts pod if this fails
+            httpGet:
+              path: /
+              port: 80	
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          readinessProbe:             # ← K8s sends traffic only if this passes
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10

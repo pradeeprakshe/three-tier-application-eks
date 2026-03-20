@@ -1,0 +1,6 @@
+apiVersion: v2
+name: backend
+description: BookStore Backend API Helm Chart
+type: application
+version: 0.1.0        # chart version (bump when chart changes)
+appVersion: "1.0.0"   # app version (your backend image version)

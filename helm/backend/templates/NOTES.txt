@@ -1,0 +1,15 @@
+🚀 BookStore Backend deployed successfully!
+
+Release:   {{ .Release.Name }}
+Namespace: {{ .Release.Namespace }}
+Image:     {{ .Values.image.repository }}:{{ .Values.image.tag }}
+Replicas:  {{ .Values.replicaCount }}
+
+To access the backend service:
+  kubectl port-forward svc/{{ include "backend.fullname" . }}-service 8080:{{ .Values.service.port }} -n {{ .Release.Namespace }}
+
+To check pod status:
+  kubectl get pods -n {{ .Release.Namespace }}
+
+To view logs:
+  kubectl logs -l app.kubernetes.io/name=backend -n {{ .Release.Namespace }}
